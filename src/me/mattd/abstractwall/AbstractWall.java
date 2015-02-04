@@ -17,18 +17,23 @@ import javax.swing.JFrame;
 public class AbstractWall extends JApplet {
 	
 	private static final long serialVersionUID = 3890823863443284982L;
+	
+	static int windowHeight, windowWidth;
 
 	@SuppressWarnings("deprecation")
 	public static void main(String args[]) {
 		
+		windowHeight = 800;
+		windowWidth = 600;
+		
 		JFrame f = new JFrame("AbstractWall");
-       
+		
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JApplet applet = new AbstractWall();
 		f.getContentPane().add("Center", applet);
 		applet.init();
 		f.pack();
-		f.setSize(new Dimension(800, 600));
+		f.setSize(new Dimension(windowHeight, windowWidth));
 		f.show();
 	}
 
@@ -36,10 +41,22 @@ public class AbstractWall extends JApplet {
 		Graphics2D g2 = (Graphics2D) g;
 
 	    Polygon poly = new Polygon();
+	    
+	    int lastX = 0, lastY = 0;
+	    
+	    for (int count = 0; count <= windowHeight / 100; count++) {
+	    	poly.addPoint(lastX, lastY);
+		    poly.addPoint(lastX + 100, lastY + 100);
+		    poly.addPoint(lastX, lastY + 100);
+		    g2.drawPolygon(poly);
+		    lastX += 100;
+		    lastY += 100;
+		    poly.reset();
+	    }
 
-	    poly.addPoint(150, 150);
-	    poly.addPoint(250, 100);
-	    poly.addPoint(325, 125);
+	    poly.addPoint(0, 0);
+	    poly.addPoint(100, 100);
+	    poly.addPoint(0, 100);
 
 	    g2.drawPolygon(poly);
 		
