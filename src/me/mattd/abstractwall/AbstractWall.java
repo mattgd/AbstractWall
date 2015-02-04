@@ -59,6 +59,9 @@ public class AbstractWall extends JApplet {
 	    		poly.addPoint(lastX, lastY + 100);
 			    poly.addPoint(lastX + 100, lastY + 100);
 			    
+			    g2.setPaint(TriangleColor.generateGradient());
+			    g2.fill(poly);
+			    
 			    g2.drawPolygon(poly);
 			    
 			    poly.reset();
@@ -67,6 +70,9 @@ public class AbstractWall extends JApplet {
 		    	poly.addPoint(lastX, lastY);
 	    		poly.addPoint(lastX + 100, lastY);
 			    poly.addPoint(lastX + 100, lastY + 100);
+			    
+			    g2.setPaint(TriangleColor.generateGradient());
+			    g2.fill(poly);
 			    
 			    g2.drawPolygon(poly); // Draw the triangle
 			    
