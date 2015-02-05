@@ -39,7 +39,7 @@ public class GradientColor {
 		}
 		
 		if (colorChoices.get(randomColor) == colorChoices.get(randomSecondary)) {
-			pickColorTwo();
+			pickColorTwo(); // Colors have to be a gradient
 		}
 		
 		return colorChoices.get(randomSecondary);
