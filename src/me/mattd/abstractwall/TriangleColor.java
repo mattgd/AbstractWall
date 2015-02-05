@@ -14,7 +14,7 @@ public class TriangleColor {
 	static int randomColor;
 	
 	public static GradientPaint generateGradient() {
-		GradientPaint gradientPaint = new GradientPaint(50.0f, 50.0f, pickColorOne(), 75.0f, 75.0f, pickColorTwo(), true);
+		GradientPaint gradientPaint = new GradientPaint(0.0f, 0.0f, pickColorOne(), 100.0f, 100.0f, pickColorTwo(), true);
 		return gradientPaint;
 	}
 	
@@ -24,25 +24,18 @@ public class TriangleColor {
 	}
 	
 	public static Color pickColorTwo() {
-
 		int randomSecondary = 0;
 
 		if (randomColor == 0) {
-			
 			randomSecondary = rand.nextInt(2) - 1;
-			
-			System.out.println("Zero Color: " + randomSecondary);
 			
 			if (randomSecondary == -1) {
 				randomSecondary = colorChoices.size() - 1;
 			}
 			
 		} else {
-			
 			randomSecondary = rand.nextInt(2) - 1;
-			System.out.println("Random: " + randomSecondary);
 			randomSecondary = randomColor + randomSecondary;
-
 		}
 		
 		return colorChoices.get(randomSecondary);
@@ -62,7 +55,7 @@ public class TriangleColor {
 	
 }
 
-/* Gradient rules
+/* Gradient Rules
  * 
  * 1/6 turn of the color wheel
  * 
