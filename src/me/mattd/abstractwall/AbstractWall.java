@@ -28,6 +28,8 @@ public class AbstractWall extends JApplet {
 		windowWidth = 800;
 		borderWidth = 17;
 		
+		TriangleColor.populateColorChoices(); // Adds all of the possible triangle color choices to a List
+		
 		JFrame f = new JFrame("AbstractWall");
 		
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
