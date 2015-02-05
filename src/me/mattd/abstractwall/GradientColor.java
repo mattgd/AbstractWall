@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class TriangleColor {
+public class GradientColor {
 	
 	static List<Color> colorChoices = new ArrayList<Color>();
 	
@@ -14,7 +14,7 @@ public class TriangleColor {
 	static int randomColor;
 	
 	public static GradientPaint generateGradient() {
-		GradientPaint gradientPaint = new GradientPaint(0.0f, 0.0f, pickColorOne(), 100.0f, 100.0f, pickColorTwo(), true);
+		GradientPaint gradientPaint = new GradientPaint(0.0f, 0.0f, pickColorOne(), (float) AbstractWall.windowWidth, (float) AbstractWall.windowHeight, pickColorTwo(), true);
 		return gradientPaint;
 	}
 	
@@ -36,6 +36,10 @@ public class TriangleColor {
 		} else {
 			randomSecondary = rand.nextInt(2) - 1;
 			randomSecondary = randomColor + randomSecondary;
+		}
+		
+		if (colorChoices.get(randomColor) == colorChoices.get(randomSecondary)) {
+			pickColorTwo();
 		}
 		
 		return colorChoices.get(randomSecondary);
