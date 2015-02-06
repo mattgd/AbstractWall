@@ -14,9 +14,7 @@ public class ImageManager {
 	public static BufferedImage bImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
 	
 	public static void createImage() {
-		
 		Graphics2D g2;
-		
 		g2 = bImage.createGraphics();
 		g2.drawRect(0, 0, imageWidth, imageHeight);
 		g2.setPaint(GradientColor.generateGradient());

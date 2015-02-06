@@ -93,8 +93,10 @@ public class AbstractWall extends JApplet {
 	    });
 		
 		JButton saveButton = new JButton("Save Wallpaper");
-		saveButton.setBounds(193, 268, 117, 23);
+		saveButton.setBounds(178, 268, 133, 23);
 		frmAbstractwall.getContentPane().add(saveButton);
+		
+		
 		
 		/*Canvas canvas = new Canvas();
 		canvas.setBackground();
