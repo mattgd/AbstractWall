@@ -1,12 +1,15 @@
 package me.mattd.abstractwall;
 
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 
 import javax.swing.JApplet;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /*
  * Add maximum size
@@ -22,11 +25,12 @@ import javax.swing.JFrame;
 
 public class AbstractWall extends JApplet {
 	
-	
-	
 	private static final long serialVersionUID = 3890823863443284982L;
-	
 	static int windowHeight, borderHeight, windowWidth, borderWidth;
+	
+	public void init() {
+        
+    }
 
 	public static void main(String args[]) {
 		
@@ -44,14 +48,14 @@ public class AbstractWall extends JApplet {
 		f.getContentPane().add("Center", applet);
 		applet.init();
 		
-		WindowComponents.setupGUI(); // Create all of the GUI component objects
+		f.setLayout(new GridLayout(3,2));
+		f.add(new JButton("Create Wallpaper"));
+		f.add(new JLabel("Wallpaper Width: "));
+		f.add(new JTextField(20));
+		f.add(new JLabel("Wallpaper Height: "));
+		f.add(new JTextField(20));
 		
-		// Add all of the components to the window
-		for (Component comp : WindowComponents.windowComponents) {
-			f.add(comp);
-		}
-		
-		//f.setLayout(new GridLayout(1, 2, 0, 0));
+		//WindowComponents.setupGUI(); // Create all of the GUI component objects
 		
 		f.pack();
 		
@@ -61,10 +65,9 @@ public class AbstractWall extends JApplet {
 
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-
-	    g2.drawRect(0, 0, windowWidth, windowHeight);
-	    g2.setPaint(GradientColor.generateGradient());
-	    g2.fillRect(0, 0, windowWidth, windowHeight);
+		g2.drawRect(0, 0, windowWidth, windowHeight);
+		g2.setPaint(GradientColor.generateGradient());
+		g2.fillRect(0, 0, windowWidth, windowHeight);
     }
 
 }
