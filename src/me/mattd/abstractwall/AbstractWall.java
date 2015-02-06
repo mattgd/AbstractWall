@@ -56,34 +56,34 @@ public class AbstractWall extends JApplet {
 		frmAbstractwall.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmAbstractwall.getContentPane().setLayout(null);
 		
-		heightTextField = new JTextField();
-		heightTextField.setBounds(106, 35, 73, 20);
-		frmAbstractwall.getContentPane().add(heightTextField);
-		heightTextField.setColumns(10);
-		
 		JLabel widthLabel = new JLabel("Wallpaper Width:");
-		widthLabel.setBounds(10, 11, 83, 20);
+		widthLabel.setBounds(10, 11, 97, 20);
 		frmAbstractwall.getContentPane().add(widthLabel);
 		
-		JLabel heightLabel = new JLabel("Wallpaper Height:");
-		heightLabel.setBounds(10, 35, 86, 20);
-		frmAbstractwall.getContentPane().add(heightLabel);
-		
 		widthTextField = new JTextField();
-		widthTextField.setBounds(106, 11, 73, 20);
+		widthTextField.setBounds(113, 11, 73, 20);
 		frmAbstractwall.getContentPane().add(widthTextField);
 		widthTextField.setColumns(10);
 		
+		JLabel heightLabel = new JLabel("Wallpaper Height:");
+		heightLabel.setBounds(10, 35, 100, 20);
+		frmAbstractwall.getContentPane().add(heightLabel);
+		
+		heightTextField = new JTextField();
+		heightTextField.setBounds(113, 35, 73, 20);
+		frmAbstractwall.getContentPane().add(heightTextField);
+		heightTextField.setColumns(10);
+		
 		JLabel pixelsLabel1 = new JLabel("pixels");
-		pixelsLabel1.setBounds(180, 14, 27, 14);
+		pixelsLabel1.setBounds(187, 14, 34, 14);
 		frmAbstractwall.getContentPane().add(pixelsLabel1);
 		
 		JLabel pixelsLabel2 = new JLabel("pixels");
-		pixelsLabel2.setBounds(180, 38, 27, 14);
+		pixelsLabel2.setBounds(187, 38, 34, 14);
 		frmAbstractwall.getContentPane().add(pixelsLabel2);
 		
 		JButton createButton = new JButton("Create Wallpaper");
-		createButton.setBounds(90, 66, 117, 23);
+		createButton.setBounds(90, 66, 133, 23);
 		frmAbstractwall.getContentPane().add(createButton);
 		createButton.addActionListener(new ActionListener() {
 			@Override
