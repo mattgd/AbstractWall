@@ -1,15 +1,14 @@
 package me.mattd.abstractwall;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.imageio.ImageIO;
 import javax.swing.JApplet;
+import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /*
  * Add maximum size
@@ -24,74 +23,89 @@ import javax.swing.JFrame;
 public class AbstractWall extends JApplet {
 	
 	private static final long serialVersionUID = 3890823863443284982L;
-	static int windowHeight, borderHeight, windowWidth, borderWidth, wallpaperWidth, wallpaperHeight;
-	static int imageWidth = 600;
-	static int imageHeight = 600;
-	public static BufferedImage bImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
+	static int windowHeight, windowWidth;
 	
-	public void init() {
-        
-    }
+	private JFrame frmAbstractwall;
+	private JTextField heightTextField;
+	private JTextField widthTextField;
 
-	public static void main(String args[]) {
-		
-		windowHeight = 800;
-		borderHeight = 39;
-		windowWidth = 800;
-		borderWidth = 17;
-		
-		GradientColor.populateColorChoices(); // Adds all of the possible triangle color choices to a List
-		
-		JFrame f = new JFrame("AbstractWall");
-		
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		JApplet applet = new AbstractWall();
-		f.getContentPane().add("Center", applet);
-		applet.init();
-		
-		//WindowComponents.setupGUI(); // Create all of the GUI component objects
-		
-		f.pack();
-		
-		f.setSize(new Dimension(windowWidth, windowHeight));
-		f.setVisible(true);
+	// Launch the application.
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					AbstractWall window = new AbstractWall();
+					window.frmAbstractwall.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
-	public void paint(Graphics g) {
-		Graphics2D g2 = (Graphics2D) g;
-		g2.drawRect(0, 0, windowWidth, windowHeight);
-		g2.setPaint(GradientColor.generateGradient());
-		g2.fillRect(0, 0, windowWidth, windowHeight);
-    }
-	
-	public static void createImage() {
-		
-		Graphics2D g2;
-		
-		g2 = bImage.createGraphics();
-		g2.drawRect(0, 0, imageWidth, imageHeight);
-		g2.setPaint(GradientColor.generateGradient());
-		g2.fillRect(0, 0, imageWidth, imageHeight);
-		//g2.dispose();
-		saveTemporaryImage();
+	// Create the application.
+	public AbstractWall() {
+		initialize();
 	}
-	
-	public static void saveTemporaryImage() {
-		String imagesDirectory = System.getProperty("user.home");
-		imagesDirectory = imagesDirectory + "/Pictures/AbstractWall/";
-		String fileName = "abstractwall_" + System.currentTimeMillis() + ".png";
+
+	// Initialize the contents of the frame.
+	private void initialize() {
+		frmAbstractwall = new JFrame();
+		frmAbstractwall.setTitle("AbstractWall");
+		frmAbstractwall.setBounds(100, 100, 337, 340);
+		frmAbstractwall.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmAbstractwall.getContentPane().setLayout(null);
 		
-		try {
-		    File outputfile = new File(imagesDirectory + fileName);
-		    
-		    if (!outputfile.exists()) {
-		    	outputfile.mkdirs();
-		    }
-		    
-		    ImageIO.write(bImage, "png", outputfile);
-		} catch (IOException e) {
-		    e.printStackTrace();
-		}
+		heightTextField = new JTextField();
+		heightTextField.setBounds(106, 35, 73, 20);
+		frmAbstractwall.getContentPane().add(heightTextField);
+		heightTextField.setColumns(10);
+		
+		JLabel widthLabel = new JLabel("Wallpaper Width:");
+		widthLabel.setBounds(10, 11, 83, 20);
+		frmAbstractwall.getContentPane().add(widthLabel);
+		
+		JLabel heightLabel = new JLabel("Wallpaper Height:");
+		heightLabel.setBounds(10, 35, 86, 20);
+		frmAbstractwall.getContentPane().add(heightLabel);
+		
+		widthTextField = new JTextField();
+		widthTextField.setBounds(106, 11, 73, 20);
+		frmAbstractwall.getContentPane().add(widthTextField);
+		widthTextField.setColumns(10);
+		
+		JLabel pixelsLabel1 = new JLabel("pixels");
+		pixelsLabel1.setBounds(180, 14, 27, 14);
+		frmAbstractwall.getContentPane().add(pixelsLabel1);
+		
+		JLabel pixelsLabel2 = new JLabel("pixels");
+		pixelsLabel2.setBounds(180, 38, 27, 14);
+		frmAbstractwall.getContentPane().add(pixelsLabel2);
+		
+		JButton createButton = new JButton("Create Wallpaper");
+		createButton.setBounds(90, 66, 117, 23);
+		frmAbstractwall.getContentPane().add(createButton);
+		createButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ImageManager.createImage();
+			}
+	    });
+		
+		JButton saveButton = new JButton("Save Wallpaper");
+		saveButton.setBounds(193, 268, 117, 23);
+		frmAbstractwall.getContentPane().add(saveButton);
+		
+		/*Canvas canvas = new Canvas();
+		canvas.setBackground();
+		canvas.setBounds(10, 95, 300, 169);
+		canvas.
+		
+		frmAbstractwall.getContentPane().add(canvas);*/
 	}
+
+
+	
+	
 
 }

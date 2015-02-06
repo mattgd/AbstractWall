@@ -6,6 +6,8 @@ import java.awt.Graphics;
 
 public class CustomCanvas extends Canvas {
 	
+	private static final long serialVersionUID = 1L;
+
 	public void paint(Graphics g){
 		
         Color background = new Color(30,30,120); //Set this accordingly
