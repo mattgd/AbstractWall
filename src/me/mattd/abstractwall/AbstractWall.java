@@ -88,7 +88,7 @@ public class AbstractWall extends JApplet {
 		createButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				ImageManager.createImage();
+				ImageManager.saveTemporaryImage();
 			}
 	    });
 		
