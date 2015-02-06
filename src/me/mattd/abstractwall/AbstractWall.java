@@ -3,13 +3,13 @@ package me.mattd.abstractwall;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JApplet;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
 
 /*
  * Add maximum size
@@ -21,12 +21,13 @@ import javax.swing.JTextField;
  * Allow user to set wallpaper size
  */
 
-//TODO Use LayoutManager
-
 public class AbstractWall extends JApplet {
 	
 	private static final long serialVersionUID = 3890823863443284982L;
-	static int windowHeight, borderHeight, windowWidth, borderWidth;
+	static int windowHeight, borderHeight, windowWidth, borderWidth, wallpaperWidth, wallpaperHeight;
+	static int imageWidth = 600;
+	static int imageHeight = 600;
+	public static BufferedImage bImage = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_RGB);
 	
 	public void init() {
         
@@ -48,13 +49,6 @@ public class AbstractWall extends JApplet {
 		f.getContentPane().add("Center", applet);
 		applet.init();
 		
-		f.setLayout(new GridLayout(3,2));
-		f.add(new JButton("Create Wallpaper"));
-		f.add(new JLabel("Wallpaper Width: "));
-		f.add(new JTextField(20));
-		f.add(new JLabel("Wallpaper Height: "));
-		f.add(new JTextField(20));
-		
 		//WindowComponents.setupGUI(); // Create all of the GUI component objects
 		
 		f.pack();
@@ -69,5 +63,35 @@ public class AbstractWall extends JApplet {
 		g2.setPaint(GradientColor.generateGradient());
 		g2.fillRect(0, 0, windowWidth, windowHeight);
     }
+	
+	public static void createImage() {
+		
+		Graphics2D g2;
+		
+		g2 = bImage.createGraphics();
+		g2.drawRect(0, 0, imageWidth, imageHeight);
+		g2.setPaint(GradientColor.generateGradient());
+		g2.fillRect(0, 0, imageWidth, imageHeight);
+		//g2.dispose();
+		saveTemporaryImage();
+	}
+	
+	public static void saveTemporaryImage() {
+		String imagesDirectory = System.getProperty("user.home");
+		imagesDirectory = imagesDirectory + "/Pictures/AbstractWall/";
+		String fileName = "abstractwall_" + System.currentTimeMillis() + ".png";
+		
+		try {
+		    File outputfile = new File(imagesDirectory + fileName);
+		    
+		    if (!outputfile.exists()) {
+		    	outputfile.mkdirs();
+		    }
+		    
+		    ImageIO.write(bImage, "png", outputfile);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+	}
 
 }

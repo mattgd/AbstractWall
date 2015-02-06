@@ -1,8 +1,8 @@
 package me.mattd.abstractwall;
 
-import java.awt.Canvas;
-import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -77,14 +77,23 @@ public class ApplicationWindow {
 		JButton createButton = new JButton("Create Wallpaper");
 		createButton.setBounds(90, 66, 117, 23);
 		frmAbstractwall.getContentPane().add(createButton);
+		createButton.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				AbstractWall.createImage();
+			}
+	    });
+		
 		
 		JButton saveButton = new JButton("Save Wallpaper");
 		saveButton.setBounds(193, 268, 117, 23);
 		frmAbstractwall.getContentPane().add(saveButton);
 		
-		Canvas canvas = new Canvas();
-		canvas.setBackground(Color.PINK);
+		/*Canvas canvas = new Canvas();
+		canvas.setBackground();
 		canvas.setBounds(10, 95, 300, 169);
-		frmAbstractwall.getContentPane().add(canvas);
+		canvas.
+		
+		frmAbstractwall.getContentPane().add(canvas);*/
 	}
 }

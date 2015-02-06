@@ -37,6 +37,8 @@ public class WindowComponents {
 		JButton createButton = new JButton();
 		createButton.setText("Create Wallpaper");
 		
+		
+		
 		//TODO Fix last component not setting size
 	}
 	
