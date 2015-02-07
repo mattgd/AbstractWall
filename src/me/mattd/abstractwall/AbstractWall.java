@@ -16,15 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /*
- * Add maximum size
- * Add ability to set size
- * 
+ * Features to add:
  * Radial gradient
- * Expand to all 16777216 color options
- * Temporary file, preview, save
- * Allow user to set wallpaper size
  */
 
 public class AbstractWall extends JApplet {
@@ -74,6 +71,24 @@ public class AbstractWall extends JApplet {
 		widthTextField.setBounds(113, 11, 73, 20);
 		frame.getContentPane().add(widthTextField);
 		widthTextField.setColumns(10);
+		widthTextField.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				checkWidthInput(widthTextField);
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				checkWidthInput(widthTextField);
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				checkWidthInput(widthTextField);
+			}
+			
+	    });
 		
 		JLabel heightLabel = new JLabel("Wallpaper Height:");
 		heightLabel.setBounds(10, 35, 100, 20);
@@ -83,6 +98,24 @@ public class AbstractWall extends JApplet {
 		heightTextField.setBounds(113, 35, 73, 20);
 		frame.getContentPane().add(heightTextField);
 		heightTextField.setColumns(10);
+		heightTextField.getDocument().addDocumentListener(new DocumentListener() {
+			
+			@Override
+			public void changedUpdate(DocumentEvent arg0) {
+				checkHeightInput(heightTextField);
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent arg0) {
+				checkHeightInput(heightTextField);
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent arg0) {
+				checkHeightInput(heightTextField);
+			}
+			
+	    });
 		
 		JLabel pixelsLabel1 = new JLabel("pixels");
 		pixelsLabel1.setBounds(187, 14, 34, 14);
@@ -173,6 +206,48 @@ public class AbstractWall extends JApplet {
 			}
 	    });
 		
+		
+	}
+		
+	// TODO Re-factor input checks
+	public static void checkWidthInput(JTextField widthTextField) {
+		
+		if (widthTextField.getText() != "") {
+			
+			// Try/Catch for user input
+			try {
+				int width = Integer.parseInt(widthTextField.getText());
+				if (width <= 10000) {
+					ImageManager.imageWidth = Integer.parseInt(widthTextField.getText());
+				} else {
+					JOptionPane.showMessageDialog(null, "Wallpaper width must be less than 10000 pixels.");
+				}
+			} catch(NumberFormatException e) {
+				System.out.println("Input is not an integer.");
+			}
+			
+		}
+		
+	}
+	
+	public static void checkHeightInput(JTextField heightTextField) {
+		
+		if (heightTextField.getText() != "") {
+			
+			// Try/Catch for user input
+			try {
+				int height = Integer.parseInt(heightTextField.getText());
+				if (height <= 10000) {
+					ImageManager.imageHeight = Integer.parseInt(heightTextField.getText());
+				} else {
+					JOptionPane.showMessageDialog(null, "Wallpaper height must be less than 10000 pixels.");
+				}
+				
+			} catch(NumberFormatException e) {
+				System.out.println("Input is not an integer.");
+			}
+			
+		}
 		
 	}
 
