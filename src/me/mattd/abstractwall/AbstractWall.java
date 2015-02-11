@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.File;
 
 import javax.swing.BorderFactory;
@@ -13,20 +14,30 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.event.MenuEvent;
+import javax.swing.event.MenuListener;
 
 /*
  * Features to add:
  * Radial gradient
+ * Set default save location
+ * Clean up temporary files on close
  */
 
 public class AbstractWall extends JApplet {
 	
-	private static final long serialVersionUID = 3890823863443284982L;
+	private static final long serialVersionUID = 1L;
+	static String version = "1.0.2";
+
 	static int windowHeight, windowWidth;
 	
 	private JFrame frame;
@@ -56,19 +67,47 @@ public class AbstractWall extends JApplet {
 
 	// Initialize the contents of the frame.
 	private void initialize() {
+		ProgramData.getProgramDataDirectory();
+		windowWidth = 379;
+		windowHeight = 365;
 		frame = new JFrame();
 		frame.setTitle("AbstractWall");
-		frame.setBounds(100, 100, 379, 340);
+		frame.setBounds(100, 100, windowWidth, windowHeight);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
 		
+		// Create the menu bar
+		JMenuBar menuBar = new JMenuBar();
+		menuBar.setBounds(0, 0, windowWidth, 25);
+		
+		// Build the Settings button on the menu
+		JMenu menu = new JMenu("Settings");
+		menu.setMnemonic(KeyEvent.VK_S); // Accessible by Alt-S
+		menu.getAccessibleContext().setAccessibleDescription("Change program settings.");
+		menuBar.add(menu);
+		
+		menu.addMenuListener(new MenuListener() {
+	        @Override
+	        public void menuSelected(MenuEvent e) {
+	        	SettingsFrame.openSettings();
+	        }
+
+	        @Override
+	        public void menuDeselected(MenuEvent e) {}
+
+	        @Override
+	        public void menuCanceled(MenuEvent e) {}
+	    });
+		
+		frame.getContentPane().add(menuBar); // Add the menu bar to the frame
+		
 		JLabel widthLabel = new JLabel("Wallpaper Width:");
-		widthLabel.setBounds(10, 11, 97, 20);
+		widthLabel.setBounds(10, 36, 97, 20);
 		frame.getContentPane().add(widthLabel);
 		
 		widthTextField = new JTextField();
-		widthTextField.setBounds(113, 11, 73, 20);
+		widthTextField.setBounds(113, 36, 73, 20);
 		frame.getContentPane().add(widthTextField);
 		widthTextField.setColumns(10);
 		widthTextField.getDocument().addDocumentListener(new DocumentListener() {
@@ -91,11 +130,11 @@ public class AbstractWall extends JApplet {
 	    });
 		
 		JLabel heightLabel = new JLabel("Wallpaper Height:");
-		heightLabel.setBounds(10, 35, 100, 20);
+		heightLabel.setBounds(10, 60, 100, 20);
 		frame.getContentPane().add(heightLabel);
 		
 		heightTextField = new JTextField();
-		heightTextField.setBounds(113, 35, 73, 20);
+		heightTextField.setBounds(113, 60, 73, 20);
 		frame.getContentPane().add(heightTextField);
 		heightTextField.setColumns(10);
 		heightTextField.getDocument().addDocumentListener(new DocumentListener() {
@@ -118,19 +157,19 @@ public class AbstractWall extends JApplet {
 	    });
 		
 		JLabel pixelsLabel1 = new JLabel("pixels");
-		pixelsLabel1.setBounds(187, 14, 34, 14);
+		pixelsLabel1.setBounds(187, 39, 34, 14);
 		frame.getContentPane().add(pixelsLabel1);
 		
 		JLabel pixelsLabel2 = new JLabel("pixels");
-		pixelsLabel2.setBounds(187, 38, 34, 14);
+		pixelsLabel2.setBounds(187, 63, 34, 14);
 		frame.getContentPane().add(pixelsLabel2);
 		
 		JLabel descLabel = new JLabel("Wallpaper Preview");
-		descLabel.setBounds(10, 70, 107, 14);
+		descLabel.setBounds(10, 95, 107, 14);
 		frame.getContentPane().add(descLabel);
 		
 		JLabel borderLabel = new JLabel();
-		borderLabel.setBounds(10, 90, 353, 180);
+		borderLabel.setBounds(10, 115, 353, 180);
 		frame.getContentPane().add(borderLabel);
 		
 		// Set the image border
@@ -139,7 +178,7 @@ public class AbstractWall extends JApplet {
 		
 		
 		JButton createButton = new JButton("Create Wallpaper");
-		createButton.setBounds(230, 20, 133, 23);
+		createButton.setBounds(230, 45, 133, 23);
 		frame.getContentPane().add(createButton);
 		createButton.addActionListener(new ActionListener() {
 			@Override
@@ -154,7 +193,7 @@ public class AbstractWall extends JApplet {
 					
 					imagePreview = new ImageIcon(ImageManager.getImageLocation());
 					imageLabel = new JLabel(imagePreview);
-					imageLabel.setBounds(10, 90, 353, 180);
+					imageLabel.setBounds(10, 115, 353, 180);
 					
 					frame.getContentPane().add(imageLabel);
 					frame.revalidate();
@@ -164,7 +203,7 @@ public class AbstractWall extends JApplet {
 	    });
 		
 		JButton saveButton = new JButton("Save Wallpaper");
-		saveButton.setBounds(230, 279, 133, 23);
+		saveButton.setBounds(230, 304, 133, 23);
 		frame.getContentPane().add(saveButton);
 		saveButton.addActionListener(new ActionListener() {
 			@Override
