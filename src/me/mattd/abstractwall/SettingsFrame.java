@@ -24,7 +24,7 @@ public class SettingsFrame {
 		tempFileLabel.setBounds(10, 35, 84, 20);
 		settingsFrame.getContentPane().add(tempFileLabel);
 		
-		final JTextField tempFileTextField = new JTextField(ProgramData.dataDirectory); //TODO Does not set text.
+		final JTextField tempFileTextField = new JTextField(ProgramData.dataDirectory);
 		tempFileTextField.setBounds(103, 36, 300, 20);
 		settingsFrame.repaint();
 		settingsFrame.getContentPane().add(tempFileTextField);

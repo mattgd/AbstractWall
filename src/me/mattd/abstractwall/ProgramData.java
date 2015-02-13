@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class ProgramData {
 	
-	static String dataDirectory = System.getProperty("user.home") + "/Documents/AbstractWall/";
+	static String dataDirectory = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "AbstractWall" + File.separator;
 	
 	public static void loadDataDirectory() {
 		Properties prop = new Properties();
@@ -19,7 +19,7 @@ public class ProgramData {
 
 		String directory = prop.getProperty("temporary-file-save-location"); 
 		
-		if (directory != "") {
+		if (directory.length() != 0) {
 			dataDirectory = directory;
 		}
 	}
@@ -28,7 +28,7 @@ public class ProgramData {
 		// Load the program properties configuration
 		Properties prop = new Properties();
 		try {
-			prop.load(new FileInputStream("data.cfg"));
+			prop.load(new FileInputStream("src/data.cfg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
