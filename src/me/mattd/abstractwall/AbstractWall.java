@@ -5,6 +5,8 @@ import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
 
 import javax.swing.BorderFactory;
@@ -27,8 +29,6 @@ import javax.swing.event.MenuListener;
 /*
  * Features to add:
  * Radial gradient
- * Set default save location
- * Clean up temporary files on close
  */
 
 public class AbstractWall extends JApplet {
@@ -74,6 +74,13 @@ public class AbstractWall extends JApplet {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setResizable(false);
+		frame.addWindowListener(new WindowAdapter() {
+		    @Override
+		    public void windowClosing(WindowEvent e) {
+		    	ImageManager.clearTemporaryImages(); // Deletes all of the temporary images created
+		    	System.exit(0);
+		    }
+		});
 		
 		// Create the menu bar
 		JMenuBar menuBar = new JMenuBar();

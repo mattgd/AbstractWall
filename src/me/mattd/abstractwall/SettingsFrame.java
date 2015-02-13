@@ -9,6 +9,8 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class SettingsFrame {
+	
+	// Create the "Settings" window
 	public static void openSettings() {
 		JFrame settingsFrame = new JFrame("Settings");
 		settingsFrame.getContentPane().setLayout(null); // Absolute layout

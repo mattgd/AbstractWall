@@ -7,18 +7,23 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.imageio.ImageIO;
 
 public class ImageManager {
-
+	
+	static List<File> temporaryImages = new ArrayList<File>();
+	
 	static int imageWidth = 600;
 	static int imageHeight = 600;
 	static String imageLocation;
 	static BufferedImage gradient;
 	static File temporaryFile;
 	
+	// Save images - both temporary and user-saved
 	public static void saveImage(int type, String filePath) {
 		
 		String imagesDirectory = ProgramData.dataDirectory;
@@ -40,6 +45,7 @@ public class ImageManager {
 		    if (type == 0) {
 		    	ImageIO.write(createGradientImage(), "png", outputfile);
 		    	temporaryFile = new File(outputfile.getPath()); // Set the location of the temporary file
+		    	temporaryImages.add(temporaryFile);
 		    } else {
 		    	ImageIO.write(gradient, "png", outputfile);
 		    	
@@ -54,20 +60,21 @@ public class ImageManager {
 		}
 	}
 	
-	 public static BufferedImage createGradientImage() {
-		 gradient = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
+	// Generate the gradient image
+	public static BufferedImage createGradientImage() {
+		gradient = new BufferedImage(imageWidth, imageHeight, BufferedImage.TYPE_INT_ARGB);
 		 
-		 // Set the image paint to the gradient
-		 Graphics2D g = gradient.createGraphics();
-		 GradientPaint paint = new GradientPaint(0.0f, 0.0f, generateColor(), imageWidth, imageHeight, generateColor()); // "imageWidth, imageHeight" are orientation values
-		 g.setPaint(paint);
-		 g.fill(new Rectangle2D.Double(0, 0, imageWidth, imageHeight));
-		 
-		 // Clear the graphic and image
-		 g.dispose();
-		 gradient.flush();
-
-		 return gradient;
+		// Set the image paint to the gradient
+		Graphics2D g = gradient.createGraphics();
+		GradientPaint paint = new GradientPaint(0.0f, 0.0f, generateColor(), imageWidth, imageHeight, generateColor()); // "imageWidth, imageHeight" are orientation values
+		g.setPaint(paint);
+		g.fill(new Rectangle2D.Double(0, 0, imageWidth, imageHeight));
+		
+		// Clear the graphic and image
+		g.dispose();
+		gradient.flush();
+		
+		return gradient;
 	 }
 	 
 	 // Generates a random RGB value
@@ -83,5 +90,12 @@ public class ImageManager {
 	 
 	 static String getImageLocation() {
 		 return imageLocation;
+	 }
+	 
+	 // Deletes all of the temporary images created
+	 static void clearTemporaryImages() {
+		 for (File file : temporaryImages) {
+			 file.delete();
+		 }
 	 }
 }

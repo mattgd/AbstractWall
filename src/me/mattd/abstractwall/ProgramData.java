@@ -9,6 +9,7 @@ public class ProgramData {
 	
 	static String dataDirectory = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "AbstractWall" + File.separator;
 	
+	// Get the current data directory from the configuration file
 	public static void loadDataDirectory() {
 		String directory = getProperty().getProperty("temporary-file-save-location"); 
 		
@@ -17,6 +18,7 @@ public class ProgramData {
 		}
 	}
 	
+	// Set the data directory
 	public static void setProgramDataDirectory(String directory) {
 		File setFile = new File(directory);
 		
