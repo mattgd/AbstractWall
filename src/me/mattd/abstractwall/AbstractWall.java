@@ -16,10 +16,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
-import javax.swing.KeyStroke;
 import javax.swing.border.Border;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -67,7 +65,7 @@ public class AbstractWall extends JApplet {
 
 	// Initialize the contents of the frame.
 	private void initialize() {
-		ProgramData.getProgramDataDirectory();
+		ProgramData.loadDataDirectory(); // Load the location of the temporary data
 		windowWidth = 379;
 		windowHeight = 365;
 		frame = new JFrame();

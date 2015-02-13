@@ -21,10 +21,9 @@ public class ImageManager {
 	
 	public static void saveImage(int type, String filePath) {
 		
-		String imagesDirectory = System.getProperty("user.home");
+		String imagesDirectory = ProgramData.dataDirectory;
 		
 		if (filePath == null) {
-			imagesDirectory = imagesDirectory + "/Pictures/AbstractWall/";
 			filePath = "abstractwall_" + System.currentTimeMillis() + ".png";
 			imageLocation = imagesDirectory + filePath;
 		} else {
@@ -85,5 +84,4 @@ public class ImageManager {
 	 static String getImageLocation() {
 		 return imageLocation;
 	 }
-	
 }

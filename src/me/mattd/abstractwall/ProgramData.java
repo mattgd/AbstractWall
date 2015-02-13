@@ -1,63 +1,46 @@
 package me.mattd.abstractwall;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
+import java.util.Properties;
 
 public class ProgramData {
 	
 	static String dataDirectory = System.getProperty("user.home") + "/Documents/AbstractWall/";
-	static String imageDirectory;
 	
-	public static void getProgramDataDirectory() {
-		BufferedReader br = null;
-		 
+	public static void loadDataDirectory() {
+		Properties prop = new Properties();
 		try {
- 
-			String currentLine;
-			
-			FileReader fr = new FileReader(dataDirectory + File.separator + "data.txt");
-			br = new BufferedReader(fr);
-			
-			while ((currentLine = br.readLine()) != null) {
-				System.out.println(currentLine);
-			}
- 
+			prop.load(new FileInputStream("src/data.cfg"));
 		} catch (IOException e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				if (br != null) br.close();
-			} catch (IOException ex) {
-				ex.printStackTrace();
-			}
+		}
+
+		String directory = prop.getProperty("temporary-file-save-location"); 
+		
+		if (directory != "") {
+			dataDirectory = directory;
 		}
 	}
 	
 	public static void setProgramDataDirectory(String directory) {
-		File file = new File(directory);
-		
-		if (file.getParentFile().exists()) {
-			dataDirectory = directory;
-			
-			file = new File(dataDirectory);
-			if (!file.exists()) {
-				PrintWriter writer;
-				
-				try {
-					writer = new PrintWriter(directory, "UTF-8");
-					writer.println("temporary-file-save-location=" + directory);
-					writer.close();
-				} catch (FileNotFoundException e) {
-					e.printStackTrace();
-				} catch (UnsupportedEncodingException e) {
-					e.printStackTrace();
-				}
-			}
+		// Load the program properties configuration
+		Properties prop = new Properties();
+		try {
+			prop.load(new FileInputStream("data.cfg"));
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
+		File setFile = new File(directory);
+		
+		if (setFile.exists()) {
+			prop.setProperty("temporary-file-save-location", directory); // Set the data directory property
+		} else {
+			System.out.println("Invalid directory setting.");
+		}
+		
+		dataDirectory = directory; // Set the global dataDirectory
 	}
 }
