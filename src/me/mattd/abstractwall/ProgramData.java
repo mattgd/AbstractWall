@@ -10,14 +10,7 @@ public class ProgramData {
 	static String dataDirectory = System.getProperty("user.home") + File.separator + "Documents" + File.separator + "AbstractWall" + File.separator;
 	
 	public static void loadDataDirectory() {
-		Properties prop = new Properties();
-		try {
-			prop.load(new FileInputStream("src/data.cfg"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		String directory = prop.getProperty("temporary-file-save-location"); 
+		String directory = getProperty().getProperty("temporary-file-save-location"); 
 		
 		if (directory.length() != 0) {
 			dataDirectory = directory;
@@ -25,22 +18,25 @@ public class ProgramData {
 	}
 	
 	public static void setProgramDataDirectory(String directory) {
-		// Load the program properties configuration
+		File setFile = new File(directory);
+		
+		if (setFile.exists()) {
+			getProperty().setProperty("temporary-file-save-location", directory); // Set the data directory property
+		} else {
+			System.out.println("Invalid directory setting.");
+		}
+		
+		dataDirectory = directory; // Set the global dataDirectory
+	}
+	
+	// Load the program properties configuration
+	public static Properties getProperty() {
 		Properties prop = new Properties();
 		try {
 			prop.load(new FileInputStream("src/data.cfg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		File setFile = new File(directory);
-		
-		if (setFile.exists()) {
-			prop.setProperty("temporary-file-save-location", directory); // Set the data directory property
-		} else {
-			System.out.println("Invalid directory setting.");
-		}
-		
-		dataDirectory = directory; // Set the global dataDirectory
+		return prop;
 	}
 }
