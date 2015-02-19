@@ -116,7 +116,6 @@ public class AbstractWall extends JApplet {
 		frame.getContentPane().add(widthTextField);
 		widthTextField.setColumns(10);
 		widthTextField.getDocument().addDocumentListener(new DocumentListener() {
-			
 			@Override
 			public void changedUpdate(DocumentEvent arg0) {
 				checkWidthInput(widthTextField);
@@ -131,7 +130,6 @@ public class AbstractWall extends JApplet {
 			public void removeUpdate(DocumentEvent arg0) {
 				checkWidthInput(widthTextField);
 			}
-			
 	    });
 		
 		JLabel heightLabel = new JLabel("Wallpaper Height:");
@@ -239,8 +237,6 @@ public class AbstractWall extends JApplet {
 				    } 
 				};
 				
-				chooser.addChoosableFileFilter(new OpenFileFilter("png", "PNG image"));
-				
 				int returnVal = chooser.showSaveDialog(frame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
 					// Add file extension if necessary
@@ -259,7 +255,6 @@ public class AbstractWall extends JApplet {
 	public static void checkWidthInput(JTextField widthTextField) {
 		
 		if (widthTextField.getText() != "") {
-			
 			// Try/Catch for user input
 			try {
 				int width = Integer.parseInt(widthTextField.getText());
@@ -271,15 +266,11 @@ public class AbstractWall extends JApplet {
 			} catch(NumberFormatException e) {
 				System.out.println("Input is not an integer.");
 			}
-			
 		}
-		
 	}
 	
 	public static void checkHeightInput(JTextField heightTextField) {
-		
 		if (heightTextField.getText() != "") {
-			
 			// Try/Catch for user input
 			try {
 				int height = Integer.parseInt(heightTextField.getText());
@@ -288,13 +279,9 @@ public class AbstractWall extends JApplet {
 				} else {
 					JOptionPane.showMessageDialog(null, "Wallpaper height must be less than 10000 pixels.");
 				}
-				
 			} catch(NumberFormatException e) {
 				System.out.println("Input is not an integer.");
 			}
-			
 		}
-		
 	}
-
 }
