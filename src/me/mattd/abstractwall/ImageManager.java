@@ -3,6 +3,7 @@ package me.mattd.abstractwall;
 import java.awt.Color;
 import java.awt.GradientPaint;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -16,11 +17,10 @@ import javax.imageio.ImageIO;
 public class ImageManager {
 	
 	static List<File> temporaryImages = new ArrayList<File>();
-	
 	static int imageWidth = 600;
 	static int imageHeight = 600;
 	static String imageLocation;
-	static BufferedImage gradient;
+	static BufferedImage gradient, resizedBI;
 	static File temporaryFile;
 	
 	// Save images - both temporary and user-saved
@@ -73,7 +73,7 @@ public class ImageManager {
 		// Clear the graphic and image
 		g.dispose();
 		gradient.flush();
-		
+		resizedBI = resize(gradient);
 		return gradient;
 	 }
 	 
@@ -97,5 +97,17 @@ public class ImageManager {
 		 for (File file : temporaryImages) {
 			 file.delete();
 		 }
+	 }
+	 
+	 // Resize the image to fit the JLabel preview pane
+	 public static BufferedImage resize(BufferedImage image) {
+		 int width = 353;
+		 int height = 180;
+		 BufferedImage bi = new BufferedImage(width, height, BufferedImage.TRANSLUCENT);
+		 Graphics2D g2d = (Graphics2D) bi.createGraphics();
+		 g2d.addRenderingHints(new RenderingHints(RenderingHints.KEY_RENDERING, RenderingHints.VALUE_RENDER_QUALITY));
+		 g2d.drawImage(image, 0, 0, width, height, null);
+		 g2d.dispose();
+		 return bi;
 	 }
 }

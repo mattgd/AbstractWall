@@ -181,7 +181,6 @@ public class AbstractWall extends JApplet {
 		Border imageBorder = BorderFactory.createLineBorder(Color.black);
 		borderLabel.setBorder(imageBorder);
 		
-		
 		JButton createButton = new JButton("Create Wallpaper");
 		createButton.setBounds(230, 45, 133, 23);
 		frame.getContentPane().add(createButton);
@@ -195,8 +194,8 @@ public class AbstractWall extends JApplet {
 				ImageManager.saveImage(0, null);
 				
 				if (ImageManager.getImageLocation() != null) {
-					
-					imagePreview = new ImageIcon(ImageManager.getImageLocation());
+					imagePreview = new ImageIcon(ImageManager.resizedBI);
+					// imagePreview = new ImageIcon(ImageManager.getImageLocation());
 					imageLabel = new JLabel(imagePreview);
 					imageLabel.setBounds(10, 115, 353, 180);
 					
@@ -244,13 +243,16 @@ public class AbstractWall extends JApplet {
 				
 				int returnVal = chooser.showSaveDialog(frame);
 				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					ImageManager.saveImage(1, chooser.getSelectedFile().getPath());
+					// Add file extension if necessary
+					if (chooser.getSelectedFile().getPath().endsWith(".png")) {
+						ImageManager.saveImage(1, chooser.getSelectedFile().getPath());
+					} else {
+						ImageManager.saveImage(1, chooser.getSelectedFile().getPath() + ".png");
+					}
 				}
 				
 			}
 	    });
-		
-		
 	}
 		
 	// TODO Re-factor input checks
